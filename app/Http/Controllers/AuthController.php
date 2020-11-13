@@ -31,7 +31,9 @@ class AuthController extends Controller
            "password" => "required|string|min:6|max:64",
         ]);
 
-        $user = User::create(["name" => $request->name, "email" => $request->email,"password" => bcrypt($request->password)]);
+        if(!$user = User::create(["name" => $request->name, "email" => $request->email,"password" => bcrypt($request->password)])){
+            return response(['message' => 'can\'t create user'], 500)->header('Content-Type', 'application/json');
+        }
 
         if($this->loginOnSignUp){
             return $this->login($request);

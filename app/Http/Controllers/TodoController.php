@@ -102,12 +102,13 @@ class TodoController extends Controller
         $this->validate($request,[
             "table_id"=>"required|numeric",
             "group_id"=>"required|numeric",
+            "group_id_new"=>"required|string",
             "label"=>"required|string",
             "desc"=>"required|string",
             "percent_done"=>"required|numeric",
         ]);
 
-        if($this->user->tables()->find($request->table_id)->groups()->find($request->group_id)->todos()->find($todo->id)->update(['label' => $request->label, 'desc'=>$request->desc, 'percent_done'=>$request->percent_done])){
+        if($this->user->tables()->find($request->table_id)->groups()->find($request->group_id)->todos()->find($todo->id)->update(['label' => $request->label, 'desc'=>$request->desc, 'percent_done'=>$request->percent_done, 'group_id'=>$request->group_id_new])){
             return response(['message' => 'updated'], 200)->header('Content-Type', 'application/json');
         }else{
             return response(['message' => 'oops cannot update'], 500)->header('Content-Type', 'application/json');

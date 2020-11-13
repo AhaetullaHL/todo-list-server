@@ -36,7 +36,6 @@ class TableController extends Controller
     {
         $table = $this->user->tables()->find($table)->with('groups')->with('groups.todos')->with('groups.todos.categories')->get()->toArray();
 
-
         return $table;
     }
 

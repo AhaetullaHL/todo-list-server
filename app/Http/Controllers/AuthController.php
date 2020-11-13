@@ -49,7 +49,12 @@ class AuthController extends Controller
             JWTAuth::invalidate($request->token);
             return response(['message' => 'Successfully logged out'], 200)->header('Content-Type', 'application/json');
         } catch (JWTException $exception){
-            return response(['message' => 'Unauthorized'], 200)->header('Content-Type', 'application/json');
+            return response(['message' => 'Unauthorized'], 401)->header('Content-Type', 'application/json');
         }
+    }
+
+    public function verify(){
+        $this->user = JWTAuth::parseToken()->authenticate();
+        return response(['message' => 'valid'], 200)->header('Content-Type', 'application/json');
     }
 }

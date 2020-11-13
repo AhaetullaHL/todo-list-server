@@ -24,6 +24,7 @@ Route::post('register','\App\Http\Controllers\AuthController@register');
 
 Route::group(['middleware' => 'auth.jwt'],function() {
     Route::get('logout', '\App\Http\Controllers\AuthController@logout');
+    Route::get('verify', '\App\Http\Controllers\AuthController@verify');
     Route::get('tables/getContent/{table}', '\App\Http\Controllers\TableController@getContent');
     Route::resource('tables', '\App\Http\Controllers\TableController');
     Route::resource('groups', '\App\Http\Controllers\GroupController');
